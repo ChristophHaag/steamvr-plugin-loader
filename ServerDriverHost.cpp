@@ -32,13 +32,13 @@
 
 using namespace vr;
 
-vr::ServerDriverHost::ServerDriverHost()
-    : logger_(osvr::util::log::make_logger("ServerDriverHost")) {}
+ServerDriverHost::ServerDriverHost() {
+};
+
 
 bool ServerDriverHost::TrackedDeviceAdded(const char *pchDeviceSerialNumber,
                                           ETrackedDeviceClass eDeviceClass,
                                           ITrackedDeviceServerDriver *pDriver) {
-    logger_->info("TrackedDeviceAdded(") << pchDeviceSerialNumber << ")";
     if (onTrackedDeviceAdded) {
         return onTrackedDeviceAdded(pchDeviceSerialNumber, eDeviceClass,
                                     pDriver);
@@ -49,72 +49,52 @@ bool ServerDriverHost::TrackedDeviceAdded(const char *pchDeviceSerialNumber,
 void ServerDriverHost::TrackedDevicePoseUpdated(uint32_t unWhichDevice,
                                                 const DriverPose_t &newPose,
                                                 uint32_t unPoseStructSize) {
-    logger_->debug("TrackedDevicePoseUpdated(") << unWhichDevice << ")";
 }
 
 void ServerDriverHost::VsyncEvent(double vsyncTimeOffsetSeconds) {
-    logger_->info("VsyncEvent(") << vsyncTimeOffsetSeconds << ")";
 }
 
 void ServerDriverHost::TrackedDeviceButtonPressed(uint32_t unWhichDevice,
                                                   EVRButtonId eButtonId,
                                                   double eventTimeOffset) {
-    logger_->info("TrackedDeviceButtonPressed(")
-        << unWhichDevice << ", " << eButtonId << ", " << eventTimeOffset << ")";
 }
 
 void ServerDriverHost::TrackedDeviceButtonUnpressed(uint32_t unWhichDevice,
                                                     EVRButtonId eButtonId,
                                                     double eventTimeOffset) {
-    logger_->info("TrackedDeviceButtonUnpressed(")
-        << unWhichDevice << ", " << eButtonId << ", " << eventTimeOffset << ")";
 }
 
 void ServerDriverHost::TrackedDeviceButtonTouched(uint32_t unWhichDevice,
                                                   EVRButtonId eButtonId,
                                                   double eventTimeOffset) {
-    logger_->info("TrackedDeviceButtonTouched(")
-        << unWhichDevice << ", " << eButtonId << ", " << eventTimeOffset << ")";
 }
 
 void ServerDriverHost::TrackedDeviceButtonUntouched(uint32_t unWhichDevice,
                                                     EVRButtonId eButtonId,
                                                     double eventTimeOffset) {
-    logger_->info("TrackedDeviceButtonUntouched(")
-        << unWhichDevice << ", " << eButtonId << ", " << eventTimeOffset << ")";
 }
 
 void ServerDriverHost::TrackedDeviceAxisUpdated(
     uint32_t unWhichDevice, uint32_t unWhichAxis,
     const VRControllerAxis_t &axisState) {
-    logger_->info("TrackedDeviceAxisUpdated(")
-        << unWhichDevice << ", " << unWhichAxis << ", axisState)";
 }
 
 void ServerDriverHost::ProximitySensorState(uint32_t unWhichDevice,
                                             bool bProximitySensorTriggered) {
     /// gets called 1000/sec from some "main thread" and logging can be pricy.
-    logger_->debug("ProximitySensorState(")
-        << unWhichDevice << ", " << std::boolalpha << bProximitySensorTriggered
-        << ")";
 }
 
 void ServerDriverHost::VendorSpecificEvent(uint32_t unWhichDevice,
                                            vr::EVREventType eventType,
                                            const VREvent_Data_t &eventData,
                                            double eventTimeOffset) {
-    logger_->info("VendorSpecificEvent(")
-        << unWhichDevice << ", eventType, eventData, " << eventTimeOffset
-        << ")";
 }
 
 bool ServerDriverHost::IsExiting() {
-    logger_->info("IsExiting()");
     return isExiting_;
 }
 
 bool ServerDriverHost::PollNextEvent(VREvent_t *pEvent, uint32_t uncbVREvent) {
-    logger_->debug("PollNextEvent(") << uncbVREvent << ")";
     return false;
 }
 
@@ -122,14 +102,9 @@ void ServerDriverHost::GetRawTrackedDevicePoses(
     float fPredictedSecondsFromNow,
     TrackedDevicePose_t *pTrackedDevicePoseArray,
     uint32_t unTrackedDevicePoseArrayCount) {
-    logger_->debug("GetRawTrackedDevicePoses(")
-        << fPredictedSecondsFromNow << ", " << unTrackedDevicePoseArrayCount
-        << ")";
 }
 
 void ServerDriverHost::TrackedDeviceDisplayTransformUpdated(
     uint32_t unWhichDevice, HmdMatrix34_t eyeToHeadLeft,
     HmdMatrix34_t eyeToHeadRight) {
-    logger_->debug("TrackedDeviceDisplayTransformUpdated(")
-        << unWhichDevice << ", eyeToHeadLeft, eyeToHeadRight)";
 }

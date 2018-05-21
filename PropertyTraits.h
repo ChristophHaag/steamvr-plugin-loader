@@ -97,7 +97,6 @@ namespace vive {
         ParentDriver = vr::Prop_ParentDriver_Uint64,
         ResourceRoot = vr::Prop_ResourceRoot_String,
         RegisteredDeviceType = vr::Prop_RegisteredDeviceType_String,
-        InputProfileName = vr::Prop_InputProfileName_String,
         ReportsTimeSinceVSync = vr::Prop_ReportsTimeSinceVSync_Bool,
         SecondsFromVsyncToPhotons = vr::Prop_SecondsFromVsyncToPhotons_Float,
         DisplayFrequency = vr::Prop_DisplayFrequency_Float,
@@ -329,9 +328,6 @@ namespace vive {
         };
         template <>
         struct PropertyTypeTrait<vr::Prop_RegisteredDeviceType_String> {
-            using type = std::string;
-        };
-        template <> struct PropertyTypeTrait<vr::Prop_InputProfileName_String> {
             using type = std::string;
         };
         template <>

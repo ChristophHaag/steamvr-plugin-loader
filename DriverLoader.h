@@ -28,7 +28,6 @@
 // Internal Includes
 #include "InterfaceTraits.h"
 #include "ReturnValue.h"
-#include <osvr/Util/Logger.h>
 
 // Library/third-party includes
 // - none
@@ -165,7 +164,6 @@ namespace vive {
         std::string driverRoot_;
         DriverFactory factory_;
         std::function<void()> cleanup_;
-        osvr::util::log::LoggerPtr logger_;
     };
 
 } // namespace vive

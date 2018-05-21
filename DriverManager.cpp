@@ -34,16 +34,17 @@
 
 using namespace vr;
 
-DriverManager::DriverManager()
-    : m_logger(osvr::util::log::make_logger("DriverManager")) {}
+DriverManager::DriverManager() {}
+
+DriverHandle_t DriverManager::GetDriverHandle( const char *pchDriverName ) {
+    return 0;
+}
 
 uint32_t DriverManager::GetDriverCount() const {
-    m_logger->debug("GetDriverCount");
     return 1;
 }
 uint32_t DriverManager::GetDriverName(vr::DriverId_t nDriver, char *pchValue,
                                       uint32_t unBufferSize) {
-    m_logger->debug("GetDriverName(") << nDriver << "," << unBufferSize << ")";
     const std::string driverName = "lighthouse";
     if (unBufferSize > driverName.size()) {
         auto ret = valveStrCpy(driverName, pchValue, unBufferSize);

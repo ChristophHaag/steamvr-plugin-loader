@@ -51,6 +51,7 @@ class DriverManager : public vr::IVRDriverManager {
     */
     virtual uint32_t GetDriverName(vr::DriverId_t nDriver, char *pchValue,
                                    uint32_t unBufferSize);
+    virtual DriverHandle_t GetDriverHandle( const char *pchDriverName );
 
   private:
     osvr::util::log::LoggerPtr m_logger;

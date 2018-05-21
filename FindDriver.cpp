@@ -54,6 +54,9 @@
 
 using osvr::util::finally;
 
+#include <boost/filesystem.hpp>
+using boost::filesystem::path;
+
 namespace osvr {
 namespace vive {
 #if defined(OSVR_WINDOWS)

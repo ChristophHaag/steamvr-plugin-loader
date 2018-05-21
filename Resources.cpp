@@ -33,18 +33,15 @@
 
 using namespace vr;
 
-Resources::Resources() : m_logger(osvr::util::log::make_logger("Resources")) {}
+Resources::Resources() {}
 
 uint32_t Resources::LoadSharedResource(const char *pchResourceName,
                                        char *pchBuffer, uint32_t unBufferLen) {
-    m_logger->debug("LoadSharedResource(") << pchResourceName << ")";
     return 0;
 }
 uint32_t Resources::GetResourceFullPath(const char *pchResourceName,
                                         const char *pchResourceTypeDirectory,
                                         char *pchPathBuffer,
                                         uint32_t unBufferLen) {
-    m_logger->debug("GetResourceFullPath(")
-        << pchResourceName << ", " << pchResourceTypeDirectory << ")";
     return 0;
 }

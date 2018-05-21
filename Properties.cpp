@@ -122,8 +122,7 @@ inline void readProperty(PropertiesStore const &store,
     auto be = ValueGetter(batchEntry);
     val.apply_visitor(be);
 }
-Properties::Properties()
-    : m_logger(osvr::util::log::make_logger("Properties")) {
+Properties::Properties() {
 
     osvr::vive::LocationInfo locations;
     locations = osvr::vive::findLocationInfoForDriver();
@@ -154,8 +153,6 @@ Properties::ReadPropertyBatch(PropertyContainerHandle_t ulContainerHandle,
                               uint32_t unBatchEntryCount) {
     uint64_t deviceId = ulContainerHandle - 1;
     if (!hasDeviceAt(deviceId)) {
-        m_logger->error("doesn't have the property container with id: ")
-            << ulContainerHandle;
         return TrackedProp_InvalidDevice;
     }
     auto &store = m_propertyStores.at(deviceId);
@@ -163,9 +160,6 @@ Properties::ReadPropertyBatch(PropertyContainerHandle_t ulContainerHandle,
     for (std::uint32_t i = 0; i < unBatchEntryCount; ++i) {
         auto &entry = pBatch[i];
 
-        m_logger->debug() << "ReadPropertyBatch: Entry " << i
-                          << ", Property ID " << entry.prop
-                          << ", Supplied tag type " << entry.unTag;
         readProperty(store, pBatch[i]);
         if (pBatch[i].eError != TrackedProp_Success) {
             ret = pBatch[i].eError;
@@ -182,7 +176,6 @@ Properties::WritePropertyBatch(PropertyContainerHandle_t ulContainerHandle,
                                PropertyWrite_t *pBatch,
                                uint32_t unBatchEntryCount) {
     if (pBatch == nullptr) {
-        m_logger->error("pBatch is null");
         return TrackedProp_InvalidOperation;
     }
     uint64_t deviceId = ulContainerHandle - 1;
@@ -233,9 +226,6 @@ Properties::WritePropertyBatch(PropertyContainerHandle_t ulContainerHandle,
                 break;
             }
             default: {
-                m_logger->error()
-                    << "In property setting: Unhandled property tag type: "
-                    << entry.unTag << " for property ID" << entry.prop;
                 entry.eError = vr::TrackedProp_InvalidOperation;
                 break;
             }
@@ -243,9 +233,7 @@ Properties::WritePropertyBatch(PropertyContainerHandle_t ulContainerHandle,
         } else if (entry.writeType == PropertyWrite_Erase) {
             pStore.erase(entry.prop);
         } else if (entry.writeType == PropertyWrite_SetError) {
-            m_logger->debug("set error");
         } else {
-            m_logger->error("unknown writeType: ") << entry.writeType;
             return vr::TrackedProp_InvalidOperation;
         }
     }
@@ -286,8 +274,6 @@ const char *Properties::GetPropErrorNameFromEnum(ETrackedPropertyError error) {
 
 PropertyContainerHandle_t
 Properties::TrackedDeviceToPropertyContainer(TrackedDeviceIndex_t nDevice) {
-    m_logger->debug("TrackedDeviceToPropertyContainer")
-        << " at index " << nDevice;
     if (!hasDeviceAt(nDevice)) {
         addDeviceAt(nDevice);
     }
@@ -301,7 +287,6 @@ bool Properties::hasDeviceAt(const std::uint64_t idx) const {
 
 void Properties::addDeviceAt(const std::uint64_t idx) {
     /// @todo this is kind of redundant with reserveIds
-    m_logger->debug("addDeviceAt ") << idx;
     if (!(idx < m_propertyStores.size())) {
         /// OK, we need to reserve more room
         reserveIds(idx + 1);

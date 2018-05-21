@@ -78,8 +78,7 @@ namespace vive {
     /// function pointer.
     DriverLoader::DriverLoader(std::string const &driverRoot,
                                std::string const &driverFile)
-        : impl_(new Impl),
-          logger_(osvr::util::log::make_logger("DriverLoader")) {
+        : impl_(new Impl) {
         /// Set the PATH to include the driver directory so it can
         /// find its deps.
         SearchPathExtender extender(driverRoot);
@@ -130,14 +129,10 @@ namespace vive {
 
     void DriverLoader::reset() {
         if (cleanup_) {
-            logger_->debug("osvr::vive::DriverLoader::reset() - cleaning up "
-                           "main provider ");
             cleanup_();
             cleanup_ = std::function<void()>{};
         }
         if (impl_) {
-            logger_->debug(
-                "osvr::vive::DriverLoader::reset() - unloading driver");
             impl_.reset();
         }
     }

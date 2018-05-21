@@ -29,8 +29,7 @@
 #include <Settings.h>
 
 // Library/third-party includes
-#include <openvr_driver.h>
-#include <osvr/Util/Logger.h>
+#include "openvr_driver.h"
 
 // Standard includes
 #include <functional>
@@ -107,7 +106,6 @@ class ServerDriverHost : public vr::IVRServerDriverHost {
 
   private:
     bool isExiting_ = false;
-    osvr::util::log::LoggerPtr logger_;
 };
 
 } // namespace vr

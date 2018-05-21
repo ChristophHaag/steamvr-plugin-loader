@@ -32,10 +32,10 @@
 #include "RGBPoints.h"
 #include "ServerPropertyHelper.h"
 
-#include "viveDisplayInput.h"
+//#include "viveDisplayInput.h"
 
 // Library/third-party includes
-#include <openvr_driver.h>
+#include "openvr_driver.h" // old version
 #include <osvr/Util/StringLiteralFileToString.h>
 
 // Standard includes
@@ -253,14 +253,14 @@ void handleDisplay(vr::TrackedDeviceIndex_t idx,
 
 int main() {
     {
-        g_descriptor.reset(
-            new DisplayDescriptor(osvr::util::makeString(viveDisplayInput)));
-        if (!(*g_descriptor)) {
-            std::cerr << PREFIX
-                      << "Could not parse template for display descriptor."
-                      << std::endl;
-            return 1;
-        }
+        //g_descriptor.reset(
+        //    new DisplayDescriptor(osvr::util::makeString(viveDisplayInput)));
+        //if (!(*g_descriptor)) {
+        //    std::cerr << PREFIX
+        //              << "Could not parse template for display descriptor."
+        //              << std::endl;
+        //    return 1;
+        //}
     }
     {
         auto vive = osvr::vive::DriverWrapper();

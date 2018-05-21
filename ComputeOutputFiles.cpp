@@ -22,9 +22,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#define OSVR_CONFIG_ROOT "share/osvrcore"
+#define OSVR_CACHED_PLUGIN_DIR "lib/osvr-plugins-0"
+#define OSVRVIVE_BIN_DIR "bin"
+
 // Internal Includes
 #include "ComputeOutputFiles.h"
-#include "PathConfig.h"
 
 // Library/third-party includes
 #include <boost/filesystem.hpp>
